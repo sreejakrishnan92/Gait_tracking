@@ -1,0 +1,26 @@
+#include "initializebgs.h"
+
+using namespace std;
+using namespace cv;
+
+void extract_contour (cv::Mat &img_mask,vector<vector<cv::Point>>& contours, cv::Rect& bounding_rect, int& largest_contour_index,vector<cv::Vec4i>& hierarchy )
+{
+		
+	int largest_area=0;
+	findContours( img_mask, contours, hierarchy,CV_RETR_CCOMP, CHAIN_SIMPLE);
+	for( int i = 0; i< contours.size(); i++ )
+	    {
+		//  Find the area of contour
+		double a=contourArea( contours[i],false); 
+		if(a>largest_area)
+			{
+			largest_area=a;
+			// cout<<i<<" area"<<a<<endl;
+			// Store the index of largest contour
+			largest_contour_index=i;               
+			// Find the bounding rectangle for biggest contour
+			bounding_rect=boundingRect(contours[i]);
+			}
+	    }
+}
+

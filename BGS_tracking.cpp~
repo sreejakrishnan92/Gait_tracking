@@ -1,0 +1,100 @@
+#include "BGS_tracking.h"
+
+BGS_tracking::BGS_tracking()
+{
+    bgs_option='1';
+    element = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(4*size_morphop + 1, 2*size_morphop+1 ), cv::Point(size_morphop,size_morphop));
+}
+
+BGS_tracking::~BGS_tracking()
+{
+    delete bgs;
+}
+
+cv::Mat& BGS_tracking::morph_operations()
+{
+    cv::threshold(img_foreground,img_foreground,200, 255,cv::THRESH_BINARY);
+    cv::dilate(img_foreground,img_morphoutput,element, cv::Point(-1, -1), 1);
+    cv::erode(img_morphoutput,img_morphoutput,element, cv::Point(-1, -1), 2);
+    return img_morphoutput;
+}
+
+void BGS_tracking::setvariables(const cv::Mat input_frame)
+{
+    input_frame.copyTo(img_input);
+    img_foreground = cv::Mat::zeros( img_foreground.size(), img_foreground.type() );
+    img_bkgmodel = cv::Mat::zeros( img_bkgmodel.size(), img_bkgmodel.type() );
+}
+
+void BGS_tracking::computebgs()
+{
+    cout<<"\ninside function\n";
+    bgs->process(img_input,img_foreground,img_bkgmodel);
+    //cvWaitKey(33);
+}
+
+void BGS_tracking::initializebgs ()
+{
+    switch(bgs_option)
+    {
+
+    case '2':
+    {
+        folderNameBGS_result="results/V2BGS/background_model";
+        folderNameBbox_result="results/V2BGS/contour";
+        string SubfolderCreateCommand1 = "mkdir -p " +folderNameBGS_result ;
+        system(SubfolderCreateCommand1.c_str());
+        string SubfolderCreateCommand2 = "mkdir -p " +folderNameBbox_result ;
+        system(SubfolderCreateCommand2.c_str());
+        bgs = new MixtureOfGaussianV2BGS;
+        break;
+    }
+    case '3':
+    {
+        folderNameBGS_result="results/MultilayerBGS/background_model";
+        folderNameBbox_result="results/MultilayerBGS/contour";
+        string SubfolderCreateCommand1 = "mkdir -p " +folderNameBGS_result ;
+        system(SubfolderCreateCommand1.c_str());
+        string SubfolderCreateCommand2 = "mkdir -p " +folderNameBbox_result ;
+        system(SubfolderCreateCommand2.c_str());
+        bgs = new MultiLayerBGS;
+        break;
+    }
+
+    case '4':
+    {
+        folderNameBGS_result="results/DPWrenGABGS/background_model";
+        folderNameBbox_result="results/DPWrenGABGS/contour";
+        string SubfolderCreateCommand1 = "mkdir -p " +folderNameBGS_result ;
+        system(SubfolderCreateCommand1.c_str());
+        string SubfolderCreateCommand2 = "mkdir -p " +folderNameBbox_result ;
+        system(SubfolderCreateCommand2.c_str());
+        bgs = new DPWrenGABGS;
+        break;
+    }
+    case '5':
+    {
+        folderNameBGS_result="results/FrameDifference/background_model";
+        folderNameBbox_result="results/FrameDifference/contour";
+        string SubfolderCreateCommand1 = "mkdir -p " +folderNameBGS_result ;
+        system(SubfolderCreateCommand1.c_str());
+        string SubfolderCreateCommand2 = "mkdir -p " +folderNameBbox_result ;
+        system(SubfolderCreateCommand2.c_str());
+        bgs = new FrameDifferenceBGS;
+        break;
+    }
+    default:
+    {
+        folderNameBGS_result="results/DPPrati/background_model";
+        folderNameBbox_result="results/DPPrati/contour";
+        string SubfolderCreateCommand1 = "mkdir -p " +folderNameBGS_result ;
+        system(SubfolderCreateCommand1.c_str());
+        string SubfolderCreateCommand2 = "mkdir -p " +folderNameBbox_result ;
+        system(SubfolderCreateCommand2.c_str());
+        bgs = new DPPratiMediodBGS;
+        break;
+    }
+    }
+}
+
+

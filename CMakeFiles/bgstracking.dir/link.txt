@@ -1,0 +1,2 @@
+/usr/bin/ar cr libbgstracking.a  CMakeFiles/bgstracking.dir/BGS_tracking.cpp.o
+/usr/bin/ranlib libbgstracking.a

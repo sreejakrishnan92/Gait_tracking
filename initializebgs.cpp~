@@ -1,0 +1,75 @@
+#include "initializebgs.h"
+
+using namespace std;
+
+
+//IBGS * initializebgs (char option,string &folderName,IBGS *bgs )
+
+void initializebgs (char option,string &folderNamebgs, string &folderNamecontour ,IBGS * &bgs )
+{
+switch(option)
+     {
+
+	case '2':
+		{ 
+		folderNamebgs="results/V2BGS/background_model";
+		folderNamecontour="results/V2BGS/contour";
+		string SubfolderCreateCommand1 = "mkdir -p " +folderNamebgs ;
+		system(SubfolderCreateCommand1.c_str());
+		string SubfolderCreateCommand2 = "mkdir -p " +folderNamecontour ;
+		system(SubfolderCreateCommand2.c_str());
+		//bgs = new FrameDifferenceBGS;
+     		bgs = new MixtureOfGaussianV2BGS;
+		break;
+		}
+	case '3':
+		{
+		folderNamebgs="results/MultilayerBGS/background_model";
+		folderNamecontour="results/MultilayerBGS/contour";
+		string SubfolderCreateCommand1 = "mkdir -p " +folderNamebgs ;
+		system(SubfolderCreateCommand1.c_str());
+		string SubfolderCreateCommand2 = "mkdir -p " +folderNamecontour ;
+		system(SubfolderCreateCommand2.c_str());
+     		bgs = new MultiLayerBGS;
+		break;
+		}
+	case '4':
+		{
+		folderNamebgs="results/DPWrenGABGS/background_model";
+		folderNamecontour="results/DPWrenGABGS/contour";
+		string SubfolderCreateCommand1 = "mkdir -p " +folderNamebgs ;
+		system(SubfolderCreateCommand1.c_str());
+		string SubfolderCreateCommand2 = "mkdir -p " +folderNamecontour ;
+		system(SubfolderCreateCommand2.c_str());
+     		bgs = new DPWrenGABGS;
+		break;
+		}
+	case '5':
+		{
+		folderNamebgs="results/DPPrati/background_model";
+		folderNamecontour="results/DPPrati/contour";
+		string SubfolderCreateCommand1 = "mkdir -p " +folderNamebgs ;
+		system(SubfolderCreateCommand1.c_str());
+		string SubfolderCreateCommand2 = "mkdir -p " +folderNamecontour ;
+		system(SubfolderCreateCommand2.c_str());
+     		bgs = new DPPratiMediodBGS;
+		break;
+		}
+       default:	
+		{ 
+		folderNamebgs="results/FrameDifference/background_model";
+		folderNamecontour="results/FrameDifference/contour";
+		string SubfolderCreateCommand1 = "mkdir -p " +folderNamebgs ;
+		system(SubfolderCreateCommand1.c_str());
+		string SubfolderCreateCommand2 = "mkdir -p " +folderNamecontour ;
+		system(SubfolderCreateCommand2.c_str());
+     		bgs = new FrameDifferenceBGS;
+		break;
+		}
+        	
+     }
+//return bgs;
+	    
+} 
+
+

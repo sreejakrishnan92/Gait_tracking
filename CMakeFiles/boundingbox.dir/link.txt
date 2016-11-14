@@ -1,0 +1,2 @@
+/usr/bin/ar cr libboundingbox.a  CMakeFiles/boundingbox.dir/Boundingbox.cpp.o
+/usr/bin/ranlib libboundingbox.a

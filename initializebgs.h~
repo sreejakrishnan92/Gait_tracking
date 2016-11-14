@@ -1,0 +1,7 @@
+#ifndef init_bgs_h
+#define init_bgs_h
+#include "header.h"
+//IBGS * initializebgs (char option,string &folderName,IBGS *bgs );
+void initializebgs (char option,string &folderNamebgs, string &folderNamecontour,IBGS* &bgs );
+void extract_contour (cv::Mat &img_mask,vector<vector<cv::Point>>& contours, cv::Rect& bounding_rect, int& largest_contour_index,vector<cv::Vec4i>& hierarchy );
+#endif

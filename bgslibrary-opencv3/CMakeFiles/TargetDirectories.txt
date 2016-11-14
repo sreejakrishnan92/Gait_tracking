@@ -1,0 +1,4 @@
+/home/sreeja/Documents/Projects1/bgslibrary-opencv3/CMakeFiles/bgs.dir
+/home/sreeja/Documents/Projects1/bgslibrary-opencv3/CMakeFiles/bgs_bin.dir
+/home/sreeja/Documents/Projects1/bgslibrary-opencv3/CMakeFiles/bgs_demo.dir
+/home/sreeja/Documents/Projects1/bgslibrary-opencv3/CMakeFiles/bgs_demo2.dir
